@@ -160,9 +160,38 @@ public class BinaryTree {
             return -1;
 
     }
+    
+    boolean checkBST(Node root) {
+        if (root == null)
+            return true;
+        Node temp = root;
+        Queue<Node> queue = new LinkedList<Node>();
+        queue.add(temp);
+        while (!queue.isEmpty()) {
+            temp = queue.poll();
+            Node left = temp.left;
+            Node right = temp.right;
+            if (left != null) {
+                if (temp.key <= left.key) {
+                    return false;
+                }
+                queue.add(left);
+
+            }
+            if (right != null) {
+                if (temp.key >= right.key) {
+                    return false;
+                }
+                queue.add(right);
+
+            }
+        }
+        return true;
+
+    }
 
     public static void main(String args[]) {
-        BinaryTree bt = new BinaryTree();
+       /*  BinaryTree bt = new BinaryTree();
         bt.root = new Node(1);
         bt.root.right = new Node(3);
         bt.root.left = new Node(2);
@@ -180,6 +209,12 @@ public class BinaryTree {
         bt.inorder(bt.root);
         bt.delete(2, bt.root);
         System.out.println("\n Afte Deleting  2");
-        bt.inorder(bt.root);
+        bt.inorder(bt.root); */
+        BinaryTree bst = new BinaryTree();
+       
+       int arr[] = {  1, 2 ,3 ,5 ,4 ,6, 7 };
+       for (int i = 0; i < arr.length; i++)
+           bst.insert(arr[i],bst.root);
+       System.out.println(bst.checkBST(bst.root));
     }
 }
